@@ -47,13 +47,10 @@ const AuctionDetail = ({ auctionId }) => {
     }
 
     try {
-      const res = await api.post(`/auctions/${auction._id}/bid`, {
-        amount: Number(bidAmount)
-      });
-      setAuction(res.data);
       setBidAmount("");
       setSuccess("✅ Bid placed successfully!");
       setTimeout(() => setSuccess(""), 3000);
+      fetchAuction(); // Re-fetch to get latest state
     } catch (err) {
       setError(err.response?.data?.message || "Failed to place bid");
     }
